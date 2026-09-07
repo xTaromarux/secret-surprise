@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mam pytanie 🏔️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  NETLIFY FORMS - instrukcja po deploymencie:
+  1. Wejdź w Netlify Dashboard → swój projekt → zakładka "Forms"
+  2. Znajdź formularz "wypad-termin" i kliknij "Enable form notifications"
+  3. Dodaj swój email jako odbiorcę powiadomień
+  Netlify wyśle Ci maila za każdym razem, gdy Karin wypełni formularz.
+-->
+<form name="wypad-termin" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="data" />
+  <input type="text" name="godzina" />
+  <input type="text" name="notatka" />
+  <input name="bot-field" />
+</form>
+
+<div id="mountains">
+  <div class="mountain-sun"></div>
+  <div class="mountain-layer back"></div>
+  <div class="mountain-layer mid"></div>
+  <span class="mountain-flag">🚩</span>
+  <div class="mountain-layer front"></div>
+  <span class="mountain-tent">⛺</span>
+</div>
+
+<div id="floating-hearts"></div>
+<div id="floating-sparkles"></div>
+<div id="decor-cats"></div>
+
+<main id="app">
+
+  <!-- EKRAN 0: HM / NIC (autostart, przed wszystkim) -->
+  <section class="screen active" id="screen-hmco">
+    <div class="hmco-wrap" id="hmco-wrap"></div>
+  </section>
+
+  <!-- EKRAN 1: START -->
+  <section class="screen" id="screen-start">
+    <h1>Hej Słodziaku 👋</h1>
+    <p>Mała niespodzianka.<br>Głupia, ale z serduszka. 🏔️</p>
+    <button class="btn-main" id="btn-start">Dobra, patrzę →</button>
+  </section>
+
+  <!-- EKRAN 2: WEJŚCIE -->
+  <section class="screen" id="screen-intro">
+    <h2>Uwaga ⚠️</h2>
+    <p class="funny">Ta strona zawiera: trochę miłości, kilka kotków,<br>
+    pytania jak to ja i jedno poważne na końcu.</p>
+    <p>Uprzedzam, żebyś wiedziała co Cię czeka.</p>
+    <button class="btn-main" id="btn-accept">Rozumiem, lecimy →</button>
+  </section>
+
+  <!-- EKRAN 3: GENERATOR -->
+  <section class="screen" id="screen-reasons">
+    <h2>Lista rzeczy, za które Cię uwielbiam </h2>
+    <p>Próbowałem je wszystkie wymienić. Nie zmieściły się.<br>Więc masz generator.</p>
+    <div class="reason-box" id="reason-box">Kliknij, żeby losować →</div>
+    <button class="btn-secondary" id="btn-reason">Losuj 🎲</button>
+    <br><br>
+    <button class="btn-main" id="btn-to-quiz">Dalej →</button>
+  </section>
+
+  <!-- EKRAN 4: QUIZ -->
+  <section class="screen" id="screen-quiz">
+    <h2>Krótki test 🧠</h2>
+    <p id="quiz-question"></p>
+    <div class="quiz-options" id="quiz-options"></div>
+    <p class="quiz-answer" id="quiz-answer"></p>
+  </section>
+
+  <!-- EKRAN 4.5: MEMY I KOTKI -->
+  <section class="screen" id="screen-memes">
+    <h2>Obowiązkowy przerywnik z kotkami 🐱</h2>
+    <p>Nie ma żadnego powodu. Po prostu są.</p>
+    <div class="meme-grid" id="meme-grid"></div>
+    <button class="btn-main" id="btn-to-date">Dalej →</button>
+  </section>
+
+  <!-- EKRAN 5: TERMINATOR WYPADU -->
+  <section class="screen" id="screen-date">
+    <h2>Konkretne pytanie 🗓️</h2>
+    <p>Kiedy finalnie wpadasz w najbliższym czasie?<br>Podaj datę i orientacyjną godzinę.</p>
+    <div class="date-form" id="date-form">
+      <div class="date-field">
+        <label for="trip-date">Data</label>
+        <input type="date" id="trip-date" name="data" />
+      </div>
+      <div class="date-field">
+        <label for="trip-time">Godzina (orientacyjnie)</label>
+        <input type="time" id="trip-time" name="godzina" />
+      </div>
+      <div class="date-field">
+        <label for="trip-note">Notatka do wiadomości - jakieś dodatkowe wnioski formalne? (opcjonalnie)</label>
+        <input type="text" id="trip-note" name="notatka" placeholder="np. mogę tylko do 18:00" maxlength="120" />
+      </div>
+      <p class="form-error" id="form-error"></p>
+      <button class="btn-main" id="btn-send-date">Wyślij i jedź dalej 🏔️</button>
+    </div>
+    <p class="form-sent" id="form-sent" hidden>Wysłano! Mail z informacją został wysłany 📬</p>
+  </section>
+
+  <!-- EKRAN 6: WIELKIE PYTANIE -->
+  <section class="screen" id="screen-question">
+    <h2>I jeszcze jedno.</h2>
+    <p class="big-question">Czy zgadzasz się znosić mnie jeszcze przez długi czas? 💙</p>
+    <div class="question-buttons">
+      <button class="btn-main" id="btn-yes">Tak, oczywiście 💙</button>
+      <button class="btn-no" id="btn-no">Nie</button>
+    </div>
+    <p class="hint" id="no-hint"></p>
+  </section>
+
+  <!-- EKRAN 7: FINAŁ -->
+  <section class="screen" id="screen-final">
+    <div id="confetti-canvas-wrap"><canvas id="confetti-canvas"></canvas></div>
+    <h1 class="final-title">No to do zobaczenia!</h1>
+    <p class="final-text">
+      Cieszę się, że jesteś.<br>
+      Pamiętaj, że masz kogoś, kto myśli o Tobie bez powodu,<br>
+      uśmiecha się na sam Twój widok<br>
+      i po prostu się cieszy, że jesteś. 💙
+    </p>
+    <p class="final-signature"> Slawuś 📍</p>
+    <button class="btn-secondary" id="btn-restart">Jeszcze raz od początku 🔁</button>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
